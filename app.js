@@ -1,50 +1,55 @@
 const seattle = {
     name: 'Seattle',
-    hourlySales: fillArray(23, 63, 6.3),
     min: 23,
     max: 63,
     avgSale: 6.3,
+    hourlySales: []
 }
 
 const tokyo = {
     name: 'Tokyo',
-    hourlySales: fillArray(3, 24, 1.2),
     min: 3,
     max: 24,
     avgSale: 1.2,
+    hourlySales: []
 }
 
 const dubai = {
     name: 'Dubai',
-    hourlySales: fillArray(11, 38, 3.7),
     min: 11,
     max: 38,
     avgSale: 3.7,
+    hourlySales: []
 }
 
 const paris = {
     name: 'Paris',
-    hourlySales: fillArray(20, 38, 2.3),
     min: 20,
     max: 38,
     avgSale: 2.3,
+    hourlySales: []
 }
 
 const lima = {
     name: 'Lima',
-    hourlySales: fillArray(2, 16, 4.6),
     min: 2,
     max: 16,
     avgSale: 4.6,
+    hourlySales: []
 }
 
 const timeSlots = [
     '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm',
 ]
 
-
-
 const storeContainerElem = document.getElementById('storeContainer');
+
+fillArray(seattle)
+fillArray(tokyo)
+fillArray(dubai)
+fillArray(paris)
+fillArray(lima)
+
 renderCookieStand(seattle);
 renderCookieStand(tokyo);
 renderCookieStand(dubai);
@@ -94,18 +99,24 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
-function fillArray(min, max, average) {
-    values = []
-    for (let i = 0; i < 14; i += 1) {
+function fillArray(city) {
+    let min = city.min
+    let max = city.max
+    let average = city.avgSale
+    let sales = city.hourlySales
 
+    for (let i = 0; i < 14; i+=1) {
         let number = getRandomInt(min, max)
         number = number * average
-       
         console.log(number)
-        values.push(Math.round(number))
+        sales.push(Math.round(number))
     }
-    return values
+    console.log(sales)
+    return sales
 }
-
-
+fillArray(seattle)
+fillArray(tokyo)
+fillArray(dubai)
+fillArray(paris)
+fillArray(lima)
 
