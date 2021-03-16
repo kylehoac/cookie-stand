@@ -18,7 +18,7 @@ const dubai = {
     name: 'Dubai',
     min: 11,
     max: 38,
-    avgSale: 3.74
+    avgSale: 3.74,
     hourlySales: []
 }
 
