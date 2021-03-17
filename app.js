@@ -121,7 +121,7 @@
 // fillArray(lima)
 
 const timeSlots = [
-    '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm',
+    '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm','Total'
 ]
 
 let CookieStands = function (name, min, max, avgSale,) {
@@ -130,9 +130,18 @@ let CookieStands = function (name, min, max, avgSale,) {
     this.max = max;
     this.avgSale = avgSale;
     this.hourlySales = [];
-    for (let i = 0; i < timeSlots.length; i++) {
+    for (let i = 0; i < timeSlots.length-1; i++) {
         this.hourlySales.push(this.generateRandom(this.min, this.max));
     }
+    this.calculateTotal();
+}
+
+CookieStands.prototype.calculateTotal = function(){
+    let total = 0
+    for (let j = 0; j < timeSlots.length-1; j++){
+        total = total + this.hourlySales[j]
+    }
+    this.hourlySales.push(total)
 }
 
 CookieStands.prototype.generateRandom = function (min, max) {
@@ -147,71 +156,101 @@ let lima = new CookieStands('Lima', 2, 16, 4.6);
 
 const storeContainerElem = document.getElementById('storeContainer');
 
-CookieStands.prototype.render = function () {
-    const sectionElem = document.createElement('section');
-    storeContainerElem.appendChild(sectionElem);
+const sectionElem = document.createElement('section');
+storeContainerElem.appendChild(sectionElem);
 
-    const nameHeaderElem = document.createElement('h2');
-    sectionElem.appendChild(nameHeaderElem);
-    nameHeaderElem.textContent = this.name;
+const tableElem = document.createElement('table');
+sectionElem.appendChild(tableElem);
 
-    const ulElem = document.createElement('ul');
-    sectionElem.appendChild(ulElem);
+const trElem = document.createElement('tr')
+tableElem.appendChild(trElem);
 
-    let total = 0;
+const blankElem = document.createElement('th');
+trElem.appendChild(blankElem);
 
-    for (let i = 0; i < timeSlots.length; i += 1) {
-        
-        total += this.hourlySales[i];
-
-        const liElem = document.createElement('li');
-
-        ulElem.appendChild(liElem);
-
-        const currentTimeSlot = timeSlots[i];
-
-        const currentSales = this.hourlySales[i];
-
-        liElem.textContent = currentTimeSlot + ': ' + currentSales + ' cookies';
-    }
-        const totalElem = document.createElement('li');
-
-        ulElem.appendChild(totalElem);
-
-        totalElem.textContent = 'Total: ' + total;
+for (i = 0; i < timeSlots.length; i++) {
+    const thElem = document.createElement('th');
+    trElem.appendChild(thElem);
+    thElem.textContent = timeSlots[i];
 }
 
-    // for (let j = 0; j < CookieStands.hourlySales.length; j += 1) {
-    //     const currentSales = CookieStands.hourlySales[j];
-    //     total += currentSales;
+CookieStands.prototype.render = function () {
+    const trElem = document.createElement('tr');
+    tableElem.appendChild(trElem);
 
-    
-//     const totalItemElem = document.createElement('li');
-//     ulElem.appendChild(totalItemElem);
-//     totalItemElem.textContent = 'Total ' + total + ' cookies';
+    const tdElem = document.createElement('td')
+    trElem.appendChild(tdElem);
+    tdElem.textContent = this.name;
 
-// function fillArray() {
-//     let min = this.min
-//     let max = this.max
-//     let average = this.avgSale
-//     let sales = this.hourlySales
+    for (i = 0; i < this.hourlySales.length; i++) {
+        const tdVal = document.createElement('td');
+        trElem.appendChild(tdVal);
+        console.log(this.hourlySales)
+        tdVal.textContent = Math.round(this.hourlySales[i] * this.avgSale);
+    }
+        // let total = 0;
+        // for (let i = 0; i < timeSlots.length; i += 1){
+        //     total += this.hourlySales[i] * this.avgSale;
+        //     const thElem = document.createElement('th')
+        //     trElem.appendChild(thElem);
+        //     thElem.textContent = "Total: " + total;
+        // }
 
-//     for (let i = 0; i < 14; i+=1) {
-//         let number = getRandomInt(min, max)
-//         number = number * average
-//         console.log(number)
-//         sales.push(Math.round(number))
-//     }
-//     console.log(sales)
-//     return sales
-// }
-// fillArray(seattle)
-// fillArray(tokyo)
-// fillArray(dubai)
-// fillArray(paris)
-// fillArray(lima)
-seattle.render();
-tokyo.render();
-dubai.render();
-paris.render();
-lima.render();
+        // const sectionElem = document.createElement('section');
+        // storeContainerElem.appendChild(sectionElem);
+
+        // const nameHeaderElem = document.createElement('h2');
+        // sectionElem.appendChild(nameHeaderElem);
+        // nameHeaderElem.textContent = this.name;
+
+        // const tableElem = document.createElement('table');
+
+        // sectionElem.appendChild(tableElem);
+
+        //     let trElem = document.createElement('tr')
+
+        //     tableElem.appendChild(trElem);
+
+        //     let total = 0;
+        //     for (let i = 0; i < timeSlots.length; i += 1) {
+        //         let thElem = document.createElement('th')
+
+        //         trElem.appendChild(thElem);
+        //         thElem.textContent = timeSlots[i]
+
+        //     }
+        //     trElem = document.createElement('tr')
+        //     tableElem.appendChild(trElem);
+
+        //     tdElem = document.createElement('td')
+        //     trElem.appendChild(tdElem);
+        //     tdElem.textContent = this.name
+
+
+        //     for (let i = 0; i < timeSlots.length; i += 1) {
+
+        //         total += this.hourlySales[i] * this.avgSale;
+
+        //         const tdElem = document.createElement('td');
+
+        //         trElem.appendChild(tdElem);
+
+        //         const currentTimeSlot = timeSlots[i];
+
+        //         const currentSales = this.hourlySales[i] * this.avgSale;
+
+        //         tdElem.textContent = currentSales + ' cookies';
+        //     }
+        //     const totalElem = document.createElement('td');
+
+        //     tableElem.appendChild(totalElem);
+
+        //     totalElem.textContent = 'Daily Total: ' + total;
+    }
+
+
+    seattle.render();
+    tokyo.render();
+    dubai.render();
+    paris.render();
+    lima.render();
