@@ -32,12 +32,12 @@ let paris = new CookieStands('Paris', 20, 38, 2.3);
 let lima = new CookieStands('Lima', 2, 16, 4.6);
 // let total = new CookieStands('Total',[])
 
-CookieStands.prototype.GrandTotal = function() {
-    let gTotal = []
-    for (let i = 0; i < timeSlots.length - 1; i++) {
-        gTotal =  + seattle[0] + tokyo[0] + dubai[0] + paris[0] + lima [0]
-    }
-}
+// CookieStands.prototype.GrandTotal = function () {
+//     let gTotal = []
+//     for (let i = 0; i < timeSlots.length - 1; i++) {
+//         gTotal = + seattle[0] + tokyo[0] + dubai[0] + paris[0] + lima[0]
+//     }
+// }
 
 
 const storeContainerElem = document.getElementById('storeContainer');
@@ -81,3 +81,38 @@ tokyo.render();
 dubai.render();
 paris.render();
 lima.render();
+
+
+
+// //make an array to hold all hoursly sales array
+// let testArray = []
+// //push all hourly sales array into this array
+// testArray.push(hourlySales)
+
+// testArray = [[1, 2, 3, 4, 5, 6, 7, 8],
+// [1, 2, 3, 4, 5, 6, 7, 8],
+// [1, 2, 3, 4, 5, 6, 7, 8],
+// [1, 2, 3, 4, 5, 6, 7, 8]]
+// let sum = 0
+
+// //since all hourly sales arrays are qual length you can calculate the sum by teh way you travrse your nested arrray/for loop
+// for (let i = 0; i < testArray.length; i++) {
+//     for (let j = 0; testArray[i].length; j++) {
+//         console.log(testArray[j][i])
+//         testArray[j][i]
+//         sum = sum + tesArray[j][i]
+//     }
+// }
+
+CookieStands.prototype.GrandTotal = function () {
+    let gTotal = []
+    gTotal.push(hourlySales)
+    // gTotal = [[seattle, tokyo, dubai, paris, lima]]
+    let sum = 0
+    for (let i = 0; i < timeSlots.length; i++) {
+        for (let j = 0; j < timeSlots.length; j++) {
+            console.log(gTotal[j][i])
+            sum = sum + gTotal[j][i];
+        }
+    }
+}

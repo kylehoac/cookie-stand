@@ -15,7 +15,6 @@ p {
 #storeContainer {
     display: flex;
     flex-direction:row;
-   
     text-align: center;
 }
 table,tr,th,td {
