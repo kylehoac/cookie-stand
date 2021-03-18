@@ -15,10 +15,19 @@ p {
 #storeContainer {
     display: flex;
     flex-direction:row;
-   
     text-align: center;
 }
-table {
-    border:solid 2px black;
+table,tr,th,td {
+    border:1px solid black;
     border-collapse:collapse;
+    width: 100%;
+    margin-left: 80px;
+}
+li {
+    font-size: 30px;
+    text-align: center;
+    list-style-type: none;
+}
+div {
+    margin: 0px 0px 0px 550px;
 }
