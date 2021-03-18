@@ -87,59 +87,23 @@ function grandTotal() {
     for (let i = 0; i < timeSlots.length; i++) {
         const sumTotal = document.createElement('td');
         let columnSum = seattle.hourlySales[i] + tokyo.hourlySales[i] + dubai.hourlySales[i] + paris.hourlySales[i] + lima.hourlySales[i];
-        console.log(seattle.hourlySales[i], tokyo.hourlySales[i]);
+        // console.log(seattle.hourlySales[i], tokyo.hourlySales[i]);
         sumTotal.textContent = columnSum;
         totalElem.appendChild(sumTotal);
         sum += columnSum;
-
-        // for (let j = 0; j < this.hourlySales.length; j++) {
-        //     console.log(totalHourlySales[j][i])
-        //     // sum = sum + totalHourlySales[j][i];
-        // }
     }
-    // const finalSum = document.createElement('td')
-    // finalSum.textContent = sum;
-    // totalElem.appendChild(finalSum);
 }
-// //make an array to hold all hoursly sales array
-// let testArray = []
-// //push all hourly sales array into this array
-// testArray.push(hourlySales)
 
-// testArray = [[1, 2, 3, 4, 5, 6, 7, 8],
-//              [1, 2, 3, 4, 5, 6, 7, 8],
-//              [1, 2, 3, 4, 5, 6, 7, 8],
-//              [1, 2, 3, 4, 5, 6, 7, 8]]
-// let sum = 0
+function addNewStandHandler(event){
+    event.preventDefault();
 
-// //since all hourly sales arrays are qual length you can calculate the sum by teh way you travrse your nested arrray/for loop
-// for (let i = 0; i < testArray.length; i++) {
-//     for (let j = 0; testArray[i].length; j++) {
-//         console.log(testArray[j][i])
-//         testArray[j][i]
-//         sum = sum + tesArray[j][i]
-//     }
-// }
+    const city = event.target.name.value;
+    const minCustomers = event.target.name.value;
+    const maxCustomers = event.target.name.value;
+    const avgCookiesPer = event.target.name.value;
 
-// CookieStands.prototype.GrandTotal = function () {
-//         let totalHourlySales = []
-//         // totalHourlySales.push(hourlySales)
-//         const len = CookieStands[0].hourlySales.length
-//     for (let i = 0; i < len; i++) {
-
-//         const dailySales = calculateSalesForAllCookieStandsForGivenHour(CookieStands, i)
-
-//     }
-// }
-// function calculateSalesForAllCookieStandsForGivenHour(CookieStands,i){
-//     let salesPerHour = 0;
-
-//     for (let j = 0; j < CookieStands[0]; j++) {
-//         const currentCookieStand = CookieStands[j];
-
-//         const hourlyTotal = currentCookieStand.hourlySales[i];
-
-//         salesPerHour += hourlyTotal
-//     }
-//         return salesPerHour;
-// }
+    const newCookieStand = new CookieStands(city,minCustomers,maxCustomers,avgCookiesPer);
+}
+    const cookieStandsFormElem = document.getElementById('newCookieStandsForm');
+    cookieStandsFormElem.addEventListener('submit', addNewStandHandler);
+    // const worcester = new CookieStands('Worcester', 3, 25 , 3.5);

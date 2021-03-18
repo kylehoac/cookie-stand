@@ -6,27 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Salmon Cookies Sales</title>
 </head>
 
 <body>
     <h1>Salmon Cookies Sales</h1>
     <p>Cookies sales broken down per hour</p>
     <div id="storeContainer">
-        <!-- <section>
-            <h2>Seattle</h2>
-            <ul>
-                <li>6am: 16 cookies</li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </section> -->
     </div>
-    <script src ="app.js"></script>
+    <form id="newCookieStandForm">
+        <fieldset class="">
+            <legend class="">Cookie Stand Application</legend>
+            <label class="">City
+                <input name="city" type="text" class=""/>
+            </label>
+            <label class="">Minimum Customers Per Hour
+                <input name="minCustomers" type="text" class=""/>
+            </label>
+            <label class="">Maximum Customers Per Hour
+                <input name="maxCustomers" type="text" class=""/>
+            </label>
+            <label class="">Average Cookies Purchased Per Customer
+                <input name="avgCookies" type="text" class=""/>
+            </label>
+        </fieldset>
+        <button type="submit" class="">Submit</button>
+    </form>
+    <script src="app.js"></script>
 </body>
 
 </html>
