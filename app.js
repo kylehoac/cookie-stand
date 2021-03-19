@@ -1,17 +1,18 @@
 const timeSlots = [
     '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', 'Total'
 ]
-
-let CookieStands = function (name, min, max, avgSale,) {
+    let salesContainer = [];
+let CookieStands = function (name, min, max, avgSale) {
     this.name = name;
     this.min = min;
     this.max = max;
     this.avgSale = avgSale;
     this.hourlySales = [];
     for (let i = 0; i < timeSlots.length - 1; i++) {
-        this.hourlySales.push(this.generateRandom(this.min, this.max));
+        this.hourlySales.push(Math.floor(this.avgSale * this.generateRandom(this.min, this.max)));
     }
     this.calculateTotal();
+    salesContainer.push(this);
 }
 
 CookieStands.prototype.calculateTotal = function () {
@@ -30,15 +31,6 @@ let tokyo = new CookieStands('Tokyo', 3, 24, 1.2);
 let dubai = new CookieStands('Dubai', 11, 38, 3.74);
 let paris = new CookieStands('Paris', 20, 38, 2.3);
 let lima = new CookieStands('Lima', 2, 16, 4.6);
-// let total = new CookieStands('Total',[])
-
-// CookieStands.prototype.GrandTotal = function () {
-//     let gTotal = []
-//     for (let i = 0; i < timeSlots.length - 1; i++) {
-//         gTotal = + seattle[0] + tokyo[0] + dubai[0] + paris[0] + lima[0]
-//     }
-// }
-
 
 const storeContainerElem = document.getElementById('storeContainer');
 
@@ -71,8 +63,8 @@ CookieStands.prototype.render = function () {
     for (i = 0; i < this.hourlySales.length; i++) {
         const tdVal = document.createElement('td');
         trElem.appendChild(tdVal);
-        console.log(this.hourlySales)
-        tdVal.textContent = Math.round(this.hourlySales[i] * this.avgSale);
+        // console.log(this.hourlySales)
+        tdVal.textContent = this.hourlySales[i];
     }
 
 }
@@ -81,38 +73,50 @@ tokyo.render();
 dubai.render();
 paris.render();
 lima.render();
+grandTotal();
 
 
+function grandTotal() {
+    let totalHourlySales = []
+    let sum = 0;
+    const totalElem = document.createElement('tr');
+    tableElem.appendChild(totalElem);
 
-// //make an array to hold all hoursly sales array
-// let testArray = []
-// //push all hourly sales array into this array
-// testArray.push(hourlySales)
-
-// testArray = [[1, 2, 3, 4, 5, 6, 7, 8],
-// [1, 2, 3, 4, 5, 6, 7, 8],
-// [1, 2, 3, 4, 5, 6, 7, 8],
-// [1, 2, 3, 4, 5, 6, 7, 8]]
-// let sum = 0
-
-// //since all hourly sales arrays are qual length you can calculate the sum by teh way you travrse your nested arrray/for loop
-// for (let i = 0; i < testArray.length; i++) {
-//     for (let j = 0; testArray[i].length; j++) {
-//         console.log(testArray[j][i])
-//         testArray[j][i]
-//         sum = sum + tesArray[j][i]
-//     }
-// }
-
-CookieStands.prototype.GrandTotal = function () {
-    let gTotal = []
-    gTotal.push(hourlySales)
-    // gTotal = [[seattle, tokyo, dubai, paris, lima]]
-    let sum = 0
-    for (let i = 0; i < timeSlots.length; i++) {
-        for (let j = 0; j < timeSlots.length; j++) {
-            console.log(gTotal[j][i])
-            sum = sum + gTotal[j][i];
+    const totalTextElem = document.createElement('td')
+    totalTextElem.textContent = "Total "
+    totalElem.appendChild(totalTextElem);
+    for (let i = 0; i < timeSlots.length -1; i++) {
+        let counter = 0
+        for (let j = 0; j < salesContainer.length; j++) {
+            console.log(salesContainer[j].hourlySales[i])
+            counter += salesContainer[j].hourlySales[i];
         }
+        const sumTotal = document.createElement('td');
+        sumTotal.textContent = counter;
+        totalElem.appendChild(sumTotal);
+        sum += counter;
     }
+        const totalOfTotals = document.createElement('td')
+        totalElem.appendChild(totalOfTotals);
+        totalOfTotals.textContent = sum;
+}
+
+const cookieStandsFormElem = document.getElementById('newCookieStandForm');
+cookieStandsFormElem.addEventListener('submit', addNewStandHandler);
+
+function addNewStandHandler(event){
+    event.preventDefault();
+
+    const city = event.target.city.value;
+    const minCustomers = event.target.minCustomers.value;
+    const maxCustomers = event.target.maxCustomers.value;
+    const avgCookiesPer = event.target.avgCookiesPer.value;
+
+    const newCookieStand = new CookieStands(city,minCustomers,maxCustomers,avgCookiesPer);
+
+    tableElem.removeChild(tableElem.lastChild);
+
+    newCookieStand.render();
+
+    grandTotal();
 }
