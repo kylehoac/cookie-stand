@@ -1,7 +1,7 @@
 const timeSlots = [
     '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', 'Total'
 ]
-
+    let salesContainer = [];
 let CookieStands = function (name, min, max, avgSale) {
     this.name = name;
     this.min = min;
@@ -12,6 +12,7 @@ let CookieStands = function (name, min, max, avgSale) {
         this.hourlySales.push(Math.floor(this.avgSale * this.generateRandom(this.min, this.max)));
     }
     this.calculateTotal();
+    salesContainer.push(this);
 }
 
 CookieStands.prototype.calculateTotal = function () {
@@ -74,9 +75,9 @@ paris.render();
 lima.render();
 grandTotal();
 
+
 function grandTotal() {
     let totalHourlySales = []
-    // totalHourlySales.push(hourlySales)
     let sum = 0;
     const totalElem = document.createElement('tr');
     tableElem.appendChild(totalElem);
@@ -84,26 +85,38 @@ function grandTotal() {
     const totalTextElem = document.createElement('td')
     totalTextElem.textContent = "Total "
     totalElem.appendChild(totalTextElem);
-    for (let i = 0; i < timeSlots.length; i++) {
+    for (let i = 0; i < timeSlots.length -1; i++) {
+        let counter = 0
+        for (let j = 0; j < salesContainer.length; j++) {
+            console.log(salesContainer[j].hourlySales[i])
+            counter += salesContainer[j].hourlySales[i];
+        }
         const sumTotal = document.createElement('td');
-        let columnSum = seattle.hourlySales[i] + tokyo.hourlySales[i] + dubai.hourlySales[i] + paris.hourlySales[i] + lima.hourlySales[i];
-        // console.log(seattle.hourlySales[i], tokyo.hourlySales[i]);
-        sumTotal.textContent = columnSum;
+        sumTotal.textContent = counter;
         totalElem.appendChild(sumTotal);
-        sum += columnSum;
+        sum += counter;
     }
+        const totalOfTotals = document.createElement('td')
+        totalElem.appendChild(totalOfTotals);
+        totalOfTotals.textContent = sum;
 }
+
+const cookieStandsFormElem = document.getElementById('newCookieStandForm');
+cookieStandsFormElem.addEventListener('submit', addNewStandHandler);
 
 function addNewStandHandler(event){
     event.preventDefault();
 
-    const city = event.target.name.value;
-    const minCustomers = event.target.name.value;
-    const maxCustomers = event.target.name.value;
-    const avgCookiesPer = event.target.name.value;
+    const city = event.target.city.value;
+    const minCustomers = event.target.minCustomers.value;
+    const maxCustomers = event.target.maxCustomers.value;
+    const avgCookiesPer = event.target.avgCookiesPer.value;
 
     const newCookieStand = new CookieStands(city,minCustomers,maxCustomers,avgCookiesPer);
+
+    tableElem.removeChild(tableElem.lastChild);
+
+    newCookieStand.render();
+
+    grandTotal();
 }
-    const cookieStandsFormElem = document.getElementById('newCookieStandsForm');
-    cookieStandsFormElem.addEventListener('submit', addNewStandHandler);
-    // const worcester = new CookieStands('Worcester', 3, 25 , 3.5);
