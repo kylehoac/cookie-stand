@@ -1,7 +1,7 @@
 const timeSlots = [
     '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', 'Total'
 ]
-    let salesContainer = [];
+let salesContainer = [];
 let CookieStands = function (name, min, max, avgSale) {
     this.name = name;
     this.min = min;
@@ -85,7 +85,7 @@ function grandTotal() {
     const totalTextElem = document.createElement('td')
     totalTextElem.textContent = "Total "
     totalElem.appendChild(totalTextElem);
-    for (let i = 0; i < timeSlots.length -1; i++) {
+    for (let i = 0; i < timeSlots.length - 1; i++) {
         let counter = 0
         for (let j = 0; j < salesContainer.length; j++) {
             console.log(salesContainer[j].hourlySales[i])
@@ -96,15 +96,15 @@ function grandTotal() {
         totalElem.appendChild(sumTotal);
         sum += counter;
     }
-        const totalOfTotals = document.createElement('td')
-        totalElem.appendChild(totalOfTotals);
-        totalOfTotals.textContent = sum;
+    const totalOfTotals = document.createElement('td')
+    totalElem.appendChild(totalOfTotals);
+    totalOfTotals.textContent = sum;
 }
 
 const cookieStandsFormElem = document.getElementById('newCookieStandForm');
 cookieStandsFormElem.addEventListener('submit', addNewStandHandler);
 
-function addNewStandHandler(event){
+function addNewStandHandler(event) {
     event.preventDefault();
 
     const city = event.target.city.value;
@@ -112,7 +112,7 @@ function addNewStandHandler(event){
     const maxCustomers = event.target.maxCustomers.value;
     const avgCookiesPer = event.target.avgCookiesPer.value;
 
-    const newCookieStand = new CookieStands(city,minCustomers,maxCustomers,avgCookiesPer);
+    const newCookieStand = new CookieStands(city, minCustomers, maxCustomers, avgCookiesPer);
 
     tableElem.removeChild(tableElem.lastChild);
 
